@@ -1,0 +1,144 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0b0b0b, #050505);
+  color: #ffffff;
+  padding: 3rem 2rem;
+}
+
+.title {
+  font-size: 2.4rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+/* CARD HORIZONTAL */
+.card {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 30px rgba(65, 255, 1, 0.296);
+  border-radius: 18px;
+  padding: 1.8rem;
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* IMAGEM */
+.imageWrapper {
+  width: 140px;
+  height: 140px;
+  background: #000;
+  border-radius: 14px;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imageWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* INFO */
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.productName {
+  font-size: 1.4rem;
+}
+
+.quantity {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #0FFCBE;
+}
+
+.out {
+  color: #ff4d4d;
+}
+
+/* AÇÕES */
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.actionButton {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+  background: #1a1a1a;
+  color: #ffffff;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.actionButton:hover {
+  background: #0FFCBE;
+  color: #000;
+  transform: scale(1.1);
+}
+
+/* FOOTER ACTIONS */
+.footerActions {
+  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+/* ATUALIZAR */
+.update {
+  background: linear-gradient(135deg, #0FFCBE, #00cc66);
+  border: none;
+  padding: 1rem 3rem;
+  border-radius: 14px;
+  color: #000;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.update:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0, 255, 127, 0.45);
+}
+
+/* LOGOUT */
+.logout {
+  background: linear-gradient(135deg, #ff4d4d, #ff0066);
+  border: none;
+  padding: 1rem 3rem;
+  border-radius: 14px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.logout:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(255, 0, 102, 0.45);
+}

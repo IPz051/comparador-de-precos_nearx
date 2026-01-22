@@ -1,0 +1,121 @@
+/* CONTAINER PRINCIPAL */
+.container {
+  padding: 9rem 3rem;
+  color: #fff;
+  position: relative;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.45),
+      rgba(0, 0, 0, 0.5)
+    ), url("/BackgoundPoupeJa.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+
+/* TÍTULO */
+.title {
+  color: #fff;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+/* GRID RESPONSIVO */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 2.5rem;
+  justify-items: center;
+}
+
+/* CARD */
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(26, 26, 26, 0.6);
+  border: 2px solid #0FFCBE;
+  border-radius: 16px;
+  overflow: hidden;
+  color: #fff;
+  width: 100%;
+  max-width: 350px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.8);
+}
+
+/* WRAPPER DA IMAGEM */
+.imageWrapper {
+  width: 100%;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.productImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .productImage {
+  transform: scale(1.05);
+}
+
+/* CONTEÚDO DO CARD */
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  gap: 0.5rem;
+}
+
+/* TÍTULO E PREÇO */
+.productTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.productPrice {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0FFCBE;
+  text-align: center;
+}
+
+/* BOTÃO VER OFERTA */
+.viewButton {
+  width: 100%;
+  margin-top: auto;
+  padding: 0.7rem 1rem;
+  background: linear-gradient(135deg, #106EBE, #00cc66);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.viewButton:hover {
+    filter: brightness(1.1);
+}
