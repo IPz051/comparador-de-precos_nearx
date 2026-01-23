@@ -37,7 +37,7 @@
 
 /* HERO */
 .hero {
-  min-height: calc(100vh - var(--));
+  min-height: calc(100vh - var(--navbar-height));
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
@@ -171,7 +171,7 @@
   }
 
   .hero {
-    padding: 3rem 4rem;
+    padding: 4rem 6rem;
     gap: 3rem;
   }
 
@@ -191,6 +191,11 @@
 
   .heroCards {
     padding-left: 4rem;
+  }
+
+  .productCard {
+    width: 300px;
+    height: 300px;
   }
 }
 
@@ -269,6 +274,8 @@
     padding: 1rem 5rem;
   }
 }
+
+
 
 /* =======================
    MOBILE ATÉ 480px
