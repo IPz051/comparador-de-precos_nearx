@@ -276,7 +276,7 @@
 @media (max-width: 480px) {
 
   :root {
-    --navbar-height: 190px;
+    --navbar-height: 140px;
   }
 
   .hero {

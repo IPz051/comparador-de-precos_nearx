@@ -15,9 +15,9 @@
 /* GRID */
 .grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
-  max-width: 750px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
@@ -141,4 +141,42 @@
 .logout:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 22px rgba(255, 0, 102, 0.45);
+}
+
+
+/* Media Queries */
+
+/* TABLET */
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    max-width: 900px;
+  }
+}
+
+
+
+@media (max-width: 480px) {
+  .card {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.2rem;
+  }
+
+  .imageWrapper {
+    width: 120px;
+    height: 120px;
+  }
+
+  .productName {
+    font-size: 1.25rem;
+  }
+
+  .quantity {
+    font-size: 1.05rem;
+  }
+
+  .actions {
+    justify-content: center;
+  }
 }

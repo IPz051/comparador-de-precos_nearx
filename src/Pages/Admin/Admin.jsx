@@ -32,20 +32,23 @@ export default function AdminLogin() {
 
   return (
     <div className={styles.container}>
-      <h1>🔒 Área Administrativa</h1>
+      <div className={styles.adminCard}>
+        <h1 className={styles.title}>🔒 Área Administrativa</h1>
 
-      <input
-        type="password"
-        placeholder="Senha do admin"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        className={styles.input}
-      />
+        <input
+          type="password"
+          placeholder="Senha do admin"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className={styles.input}
+        />
 
-      <button onClick={handleLogin} className={styles.button}>
-        Entrar
-      </button>
+        <button onClick={handleLogin} className={styles.button}>
+          Entrar
+        </button>
+      </div>
     </div>
+
   );
 }
 
