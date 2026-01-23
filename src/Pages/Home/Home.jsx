@@ -3,7 +3,7 @@ import { productsMock } from "../../Mocks/Products";
 import { getPriceComparison } from "../../services/priceService";
 import ProductList from "../../components/ProductList";
 import MarketplaceCard from "../../components/MarketplaceCard";
-import styles from "./Home.module.css";
+import styles from "./home.module.css";
 
 export default function Home() {
   // ===== ESTADO DO ESTOQUE =====

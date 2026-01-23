@@ -1,8 +1,7 @@
 import { useParams } from "react-router-dom";
 import { productsCatalog } from "../../Mocks/Products";
 import ProductPreview from "../../components/ProductPreview/ProductPreview";
-import styles from "./productCategory.module.css";
-
+import styles from './ProductCategory.module.css'
 export default function ProductCategory() {
   const { category } = useParams();
 

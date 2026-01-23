@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getPriceComparison } from "../../Services/priceCompareService";
 import MarketplaceCard from "../../components/MarketplaceCard";
-import styles from "./productDetail.module.css";
+import styles from "./ProductDetail.module.css";
 
 export default function ProductDetail() {
   const { id } = useParams();

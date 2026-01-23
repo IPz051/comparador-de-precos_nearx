@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { getPriceComparison } from "../../Services/priceCompareService";
-import styles from "./products.module.css";
+import styles from "./Products.module.css";
 import Navbar from "../../components/Header/Header";
 
 export default function Products() {

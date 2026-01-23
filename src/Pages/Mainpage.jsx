@@ -13,7 +13,7 @@ export function Mainpage() {
   const [query] = useState("");
 
   useEffect(() => {
-    localStorage.removeItem("firstVisit"); // Remover esta linha após os testes
+    // localStorage.removeItem("firstVisit"); // Remover esta linha após os testes
     const firstVisit = localStorage.getItem("firstVisit");
 
     if (!firstVisit) {
