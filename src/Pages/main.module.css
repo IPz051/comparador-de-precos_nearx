@@ -5,7 +5,7 @@
 }
 
 :root {
-    --navbar-height: 120px;
+    --navbar-height: 90px;
   }
 
 /* CONTAINER PRINCIPAL */
@@ -42,14 +42,15 @@
   grid-template-columns: 1fr 1fr;
   align-items: center;
 
-  padding: 4rem 8rem;
+  padding: clamp(2rem, 5vw, 5rem);
   gap: 4rem;
 }
 
 .heroContent {
   display: grid;
   grid-template-columns: minmax(480px, 1fr) 1.4fr;
-  max-width: 1400px;
+  max-width: 1200px;
+  margin: 0 auto;
   width: 100%;
   gap: 4rem;
 }
@@ -70,8 +71,8 @@
 }
 
 .heroText h1 {
-  font-size: 4.5rem;
-  margin-bottom: 1rem;
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
 }
 
 .heroText p {
@@ -84,12 +85,12 @@
   display: grid;
   grid-template-columns: repeat(2 , 1fr);
   gap: 2rem;
-  padding-left: 10rem;
+  
 }
 
 .productCard {
-  width: 300px;
-  height: 300px;
+  width: 280px;
+  height: 210px;
   border-radius: 16px;
   overflow: hidden;
   position: relative;
@@ -245,7 +246,7 @@
 @media (max-width: 768px) {
 
   :root {
-    --navbar-height: 170px;
+    --navbar-height: 100px;
   }
 
   .hero {
