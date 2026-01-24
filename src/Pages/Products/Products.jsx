@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { getPriceComparison } from "../../Services/priceCompareService";
 import styles from "./Products.module.css";
 import Navbar from "../../components/Header/Header";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Products() {
   const location = useLocation();
@@ -18,8 +19,11 @@ export default function Products() {
     async function loadProducts() {
       setLoading(true);
       try {
-        const data = await getPriceComparison(query);
-        setProducts(data.results.slice(0, 20));
+        const response = await fetch(
+          `${API_URL}/compare?query=${encodeURIComponent(query)}`
+        );
+        const data = await response.json();
+        setProducts(data.results?.slice(0, 20) || []);
       } catch (err) {
         console.error(err);
         setProducts([]);
@@ -54,9 +58,13 @@ export default function Products() {
             </div>
             <div className={styles.cardContent}>
               <h3 className={styles.productTitle}>
-                {item.title.length > 40 ? item.title.slice(0, 37) + "..." : item.title}
+                {item.title.length > 40
+                  ? item.title.slice(0, 37) + "..."
+                  : item.title}
               </h3>
-              {item.price && <p className={styles.productPrice}>{item.price}</p>}
+              {item.price && (
+                <p className={styles.productPrice}>{item.price}</p>
+              )}
               <button
                 className={styles.viewButton}
                 onClick={() => window.open(item.link, "_blank")}

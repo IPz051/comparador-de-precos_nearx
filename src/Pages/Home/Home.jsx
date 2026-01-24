@@ -1,20 +1,18 @@
 import { useEffect, useState } from "react";
 import { productsMock } from "../../Mocks/Products";
-import { getPriceComparison } from "../../services/priceService";
 import ProductList from "../../components/ProductList";
 import MarketplaceCard from "../../components/MarketplaceCard";
 import styles from "./home.module.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function Home() {
-  // ===== ESTADO DO ESTOQUE =====
   const [products, setProducts] = useState(productsMock);
 
-  // ===== ESTADO DA COMPARAÇÃO =====
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [prices, setPrices] = useState(null);
   const [loadingPrices, setLoadingPrices] = useState(false);
 
-  // ===== ATUALIZAR ESTOQUE =====
   function updateStock(id, newStock) {
     setProducts((prev) =>
       prev.map((product) =>
@@ -23,7 +21,6 @@ export default function Home() {
     );
   }
 
-  // ===== EXCLUIR PRODUTO =====
   function deleteProduct(id) {
     setProducts((prev) => prev.filter((product) => product.id !== id));
     if (selectedProduct?.id === id) {
@@ -32,7 +29,6 @@ export default function Home() {
     }
   }
 
-  // ===== BUSCAR PREÇOS =====
   useEffect(() => {
     if (!selectedProduct) return;
 
@@ -40,10 +36,18 @@ export default function Home() {
       setLoadingPrices(true);
       setPrices(null);
 
-      const result = await getPriceComparison(selectedProduct.name);
-
-      setPrices(result);
-      setLoadingPrices(false);
+      try {
+        const response = await fetch(
+          `${API_URL}/compare?query=${encodeURIComponent(selectedProduct.name)}`
+        );
+        const data = await response.json();
+        setPrices(data);
+      } catch (err) {
+        console.error(err);
+        setPrices(null);
+      } finally {
+        setLoadingPrices(false);
+      }
     }
 
     loadPrices();
@@ -53,7 +57,6 @@ export default function Home() {
     <div className={styles.container}>
       <h1>NearX - Sistema de Estoque</h1>
 
-      {/* LISTA DE PRODUTOS */}
       <ProductList
         products={products}
         onUpdateStock={updateStock}
@@ -61,7 +64,6 @@ export default function Home() {
         onCompare={setSelectedProduct}
       />
 
-      {/* COMPARAÇÃO DE PREÇOS */}
       {selectedProduct && (
         <section className={styles.comparison}>
           <h2>Comparação de preços</h2>
@@ -72,17 +74,11 @@ export default function Home() {
           {!loadingPrices && prices && (
             <div className={styles.marketplaceList}>
               <div className={styles.marketplaceItem}>
-                <MarketplaceCard
-                  marketplace="Amazon"
-                  price={prices.Amazon}
-                />
+                <MarketplaceCard marketplace="Amazon" price={prices.Amazon} />
               </div>
 
               <div className={styles.marketplaceItem}>
-                <MarketplaceCard
-                  marketplace="eBay"
-                  price={prices.eBay}
-                />
+                <MarketplaceCard marketplace="eBay" price={prices.eBay} />
               </div>
 
               <div className={styles.marketplaceItem}>

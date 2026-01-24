@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getPriceComparison } from "../../Services/priceCompareService";
 import MarketplaceCard from "../../components/MarketplaceCard";
 import styles from "./ProductDetail.module.css";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -11,8 +12,8 @@ export default function ProductDetail() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Pegar o nome do produto via mock local
-    const productsCatalog = JSON.parse(localStorage.getItem("productsCatalog")) || [];
+    const productsCatalog =
+      JSON.parse(localStorage.getItem("productsCatalog")) || [];
     const product = productsCatalog.find((p) => p.id === Number(id));
     if (product) setProductName(product.name);
   }, [id]);
@@ -22,8 +23,11 @@ export default function ProductDetail() {
 
     setLoading(true);
     try {
-      const data = await getPriceComparison(productName);
-      setPrices(data.results.slice(0, 20)); // limitar a 20 ofertas
+      const response = await fetch(
+        `${API_URL}/compare?query=${encodeURIComponent(productName)}`
+      );
+      const data = await response.json();
+      setPrices(data.results?.slice(0, 20) || []);
     } catch (err) {
       console.error(err);
       setPrices([]);

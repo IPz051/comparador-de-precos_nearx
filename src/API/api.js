@@ -1,12 +1,17 @@
+// src/API/api.js
+const API_URL = import.meta.env.VITE_API_URL;
+
 export async function fetchProducts(query) {
   if (!query) return [];
 
-  try {
-    const res = await fetch(`http://localhost:3001/compare?query=${encodeURIComponent(query)}`);
-    const data = await res.json();
-    return data.results || [];
-  } catch (err) {
-    console.error("Erro ao buscar produtos:", err);
-    return [];
+  const response = await fetch(
+    `${API_URL}/compare?query=${encodeURIComponent(query)}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Erro ao buscar produtos");
   }
+
+  const data = await response.json();
+  return data.results || [];
 }
