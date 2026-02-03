@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import styles from "./Header.module.css";
+import Swal from "sweetalert2";
 
 export function Navbar() {
   const navigate = useNavigate();
@@ -10,6 +11,9 @@ export function Navbar() {
     if (!query) return;
     navigate(`/products?search=${encodeURIComponent(query)}`);
   };
+
+const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
+
 
   return (
     <header className={styles.navbar}>
@@ -29,7 +33,32 @@ export function Navbar() {
           onKeyDown={(e) => e.key === "Enter" && handleSearch()}
         />
         <button onClick={handleSearch}>🔍</button>
-        <button className={styles.adminButton} onClick={() => navigate("/admin")}>Login</button>
+        {!loggedUser ? (
+  <>
+    <button className={styles.adminButton} onClick={() => navigate("/login")}>
+      Login
+    </button>
+
+    <button className={styles.adminButton} onClick={() => navigate("/signup")}>
+      Sign Up
+    </button>
+  </>
+) : (
+  <button
+    className={styles.adminButton}
+    onClick={() => {
+      localStorage.removeItem("loggedUser");
+      localStorage.removeItem("userAuth");
+      navigate("/");
+      window.location.reload();
+      Swal.fire ("Logout realizado !")
+    }}
+  >
+    Sign Out
+  </button>
+)}
+
+
       </div>
 
     </header>

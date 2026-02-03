@@ -32,7 +32,13 @@ export default function AdminLogin() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.adminCard}>
+      <form
+        className={styles.adminCard}
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleLogin();
+        }}
+      >
         <h1 className={styles.title}>🔒 Área Administrativa</h1>
 
         <input
@@ -43,12 +49,10 @@ export default function AdminLogin() {
           className={styles.input}
         />
 
-        <button onClick={handleLogin} className={styles.button}>
+        <button type="submit" className={styles.button}>
           Entrar
         </button>
-      </div>
+      </form>
     </div>
-
   );
 }
-

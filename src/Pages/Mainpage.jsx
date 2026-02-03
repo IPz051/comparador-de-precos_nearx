@@ -60,6 +60,9 @@ export function Mainpage() {
     navigate(`/products?search=${encodeURIComponent(query)}`);
   };
 
+  const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
+
+
   return (
     <div className={styles.container}>
       <Navbar />
@@ -67,14 +70,20 @@ export function Mainpage() {
         <section className={styles.hero}>
           <div className={styles.heroContent}>
             <div className={styles.heroText}>
-              <h1>Encontre o melhor preço para seus produtos</h1>
+              <h1> {loggedUser ?
+                `Olá, ${loggedUser.name}  Encontre o melhor preço para seus produtos` :
+                "Encontre o melhor preço para seus produtos"
+              }
+              </h1>
+
               <p>
                 Compare preços de produtos de tecnologia em tempo real e economize tempo e dinheiro
-                com nosso comparador de preços fácil de usar. 
+                com nosso comparador de preços fácil de usar.
                 <span className={styles.spanPhrase}>
-                 Pesquise ou clique nos itens ao lado.
+                  Pesquise ou clique nos cards.
                 </span>
               </p>
+
 
               <button className={styles.compareButton} onClick={handleSearch}>
                 PoupeJá!

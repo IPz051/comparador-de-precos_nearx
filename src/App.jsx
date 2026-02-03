@@ -4,6 +4,9 @@ import Products from "./Pages/Products/Products";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 import AdminDashboard from "./Pages/Admin/Dashboard/Dashboard";
 import AdminLogin from "./Pages/Admin/Admin";
+import ProductStock from "./Pages/Admin/Products/ProductsStock";
+import Signup from "./Pages/Signup/Signup";
+import Login from "./Pages/Login/Login";
 import 'animate.css'
 
 function App() {
@@ -16,6 +19,9 @@ function App() {
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/products" element={<ProductStock />} />
+        <Route path="/signup" element ={<Signup />} />
+        <Route path="/login" element ={<Login/>} />
 
       </Routes>
     </BrowserRouter>

@@ -1,0 +1,82 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.6),
+      rgba(0, 0, 0, 0.7)
+    ),
+    url("/BackgoundPoupeJa.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.card {
+  background-color: rgba(26, 26, 26, 0.8);
+  border: 2px solid #0ffcbe;
+  border-radius: 16px;
+  padding: 2.5rem 3rem;
+  width: 100%;
+  max-width: 420px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8);
+  color: #fff;
+  text-align: center;
+}
+
+.card h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #0ffcbe;
+}
+
+.card input {
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+.card input:focus {
+  box-shadow: 0 0 0 2px #0ffcbe;
+}
+
+.card button {
+  margin-top: 1rem;
+  padding: 0.9rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, #106ebe, #00cc66);
+  color: #fff;
+  transition: filter 0.2s, transform 0.2s;
+}
+
+.card button:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+/* =====================
+   MOBILE
+===================== */
+@media (max-width: 480px) {
+  .card {
+    padding: 2rem 1.5rem;
+  }
+
+  .card h1 {
+    font-size: 1.6rem;
+  }
+}

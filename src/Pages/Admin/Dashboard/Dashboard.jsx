@@ -5,83 +5,87 @@ import styles from "./Dashboard.module.css";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
+  const [stock, setStock] = useState([]);
 
-  const initialStock = [
-    { id: 1, name: "Notebook Gamer", quantity: 10, image: "/NotebookGamer.png" },
-    { id: 2, name: "Console PS5", quantity: 5, image: "/consolePS5.png" },
-    { id: 3, name: "Headset Gamer", quantity: 15, image: "/Headset.png" },
-    { id: 4, name: "iPhone", quantity: 8, image: "/Iphone.png" },
-  ];
-
-  const loadInitialStock = () => {
-    const savedStock = localStorage.getItem("stock");
-
-    if (savedStock) {
-      try {
-        const parsed = JSON.parse(savedStock);
-        if (Array.isArray(parsed)) {
-          return parsed;
-        }
-      } catch (error) {
-        console.error("Erro ao carregar estoque:", error);
-      }
-    }
-
-    return initialStock;
+  //  CARREGAR ESTOQUE 
+  const loadStock = () => {
+    fetch("http://localhost:3001/admin/stock")
+      .then(res => res.json())
+      .then(data => setStock(data))
+      .catch(err => console.error(err));
+    Swal.fire("Estoque atualizado com sucesso")
   };
-
-  const [stock, setStock] = useState(loadInitialStock);
-  const [originalStock, setOriginalStock] = useState(loadInitialStock);
 
   useEffect(() => {
     const auth = localStorage.getItem("adminAuth");
     if (!auth) {
       navigate("/admin");
+      return;
     }
+    loadStock();
   }, [navigate]);
 
-  const updateStock = (id, type) => {
-    setStock((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? {
-              ...item,
-              quantity:
-                type === "add"
-                  ? item.quantity + 1
-                  : Math.max(0, item.quantity - 1),
-            }
-          : item
-      )
+  //  AUMENTAR 
+  const increase = async (id) => {
+    const res = await fetch(
+      `http://localhost:3001/admin/products/${id}/increase`,
+      { method: "POST" }
+    );
+    const updated = await res.json();
+
+    setStock(prev =>
+      prev.map(p => p.id === id ? updated : p)
     );
   };
 
-  const hasChanges = () =>
-    JSON.stringify(stock) !== JSON.stringify(originalStock);
+  //  DIMINUIR 
+  const decrease = async (id) => {
+    const res = await fetch(
+      `http://localhost:3001/admin/products/${id}/decrease`,
+      { method: "POST" }
+    );
+    const updated = await res.json();
 
-  const confirmUpdate = () => {
-    if (!hasChanges()) {
-      Swal.fire({
-        icon: "info",
-        title: "Nenhuma alteração ❗",
-        text: "Você não fez nenhuma modificação no estoque.",
-        confirmButtonColor: "#ffaa00",
-      });
-      return;
-    }
-
-    localStorage.setItem("stock", JSON.stringify(stock));
-    setOriginalStock(stock);
-
-    Swal.fire({
-      icon: "success",
-      title: "Estoque atualizado ✅",
-      text: "As alterações foram salvas com sucesso.",
-      confirmButtonColor: "#00ff7f",
-    });
+    setStock(prev =>
+      prev.map(p => p.id === id ? updated : p)
+    );
   };
 
-  // 🚪 Logout
+  //  DELETAR 
+  const deleteProduct = async (id) => {
+    const confirm = await Swal.fire({
+      title: "Tem certeza?",
+      text: "Essa ação não pode ser desfeita",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sim, excluir",
+      cancelButtonText: "Cancelar"
+    });
+
+    if (!confirm.isConfirmed) return;
+
+    try {
+      const response = await fetch(
+        `http://localhost:3001/admin/products/${id}`,
+        { method: "DELETE" }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        Swal.fire(data.error || "Erro ao remover produto");
+        return;
+      }
+
+      setStock(prev => prev.filter(p => p.id !== id));
+      Swal.fire("Produto removido com sucesso!");
+    } catch (err) {
+      console.error(err);
+      Swal.fire("Erro de conexão com o servidor");
+    }
+  };
+
+  //  LOGOUT 
   const logout = () => {
     localStorage.removeItem("adminAuth");
     Swal.fire("Logout realizado 👋");
@@ -103,26 +107,16 @@ export default function AdminDashboard() {
               <h3 className={styles.productName}>{product.name}</h3>
 
               <span
-                className={`${styles.quantity} ${
-                  product.quantity === 0 ? styles.out : ""
-                }`}
+                className={`${styles.quantity} ${product.quantity === 0 ? styles.out : ""
+                  }`}
               >
                 Estoque: {product.quantity}
               </span>
 
               <div className={styles.actions}>
-                <button
-                  className={styles.actionButton}
-                  onClick={() => updateStock(product.id, "add")}
-                >
-                  ➕
-                </button>
-                <button
-                  className={styles.actionButton}
-                  onClick={() => updateStock(product.id, "remove")}
-                >
-                  ➖
-                </button>
+                <button onClick={() => increase(product.id)}>➕</button>
+                <button onClick={() => decrease(product.id)}>➖</button>
+                <button className={styles.logout} onClick={() => deleteProduct(product.id)}>Excluir</button>
               </div>
             </div>
           </div>
@@ -132,10 +126,16 @@ export default function AdminDashboard() {
       <div className={styles.footerActions}>
         <button
           className={styles.update}
-          onClick={confirmUpdate}
-          disabled={!hasChanges()}
+          onClick={loadStock}
         >
-          Atualizar Estoque
+          Atualizar estoque
+        </button>
+
+        <button
+          className={styles.update}
+          onClick={() => navigate("/admin/products")}
+        >
+          Cadastrar produto
         </button>
 
         <button className={styles.logout} onClick={logout}>
