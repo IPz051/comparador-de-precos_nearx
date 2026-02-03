@@ -11,13 +11,16 @@ export default function Signup() {
   const [password, setPassword] = useState("");
 
   const handleSignup = async () => {
+
+    const API_URL = import.meta.env.VITE_API_URL;
+
     if (!name || !email || !password) {
       Swal.fire("Preencha todos os campos!");
       return;
     }
 
     try {
-      const response = await fetch("http://localhost:3001/users/register", {
+      const response = await fetch(`${API_URL}/users/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

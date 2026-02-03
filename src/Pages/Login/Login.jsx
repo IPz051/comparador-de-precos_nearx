@@ -10,13 +10,17 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
+
+    const API_URL = import.meta.env.VITE_API_URL;
+
+
     if (!email || !password) {
       Swal.fire("Preencha todos os campos!");
       return;
     }
 
     try {
-      const response = await fetch("http://localhost:3001/users/login", {
+      const response = await fetch(`${API_URL}/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
