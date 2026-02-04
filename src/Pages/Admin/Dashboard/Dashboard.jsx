@@ -7,9 +7,12 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   const [stock, setStock] = useState([]);
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
+
   //  CARREGAR ESTOQUE 
   const loadStock = () => {
-    fetch("http://localhost:3001/admin/stock")
+    fetch(`${API_URL}/admin/stock`)
       .then(res => res.json())
       .then(data => setStock(data))
       .catch(err => console.error(err));
@@ -23,12 +26,12 @@ export default function AdminDashboard() {
       return;
     }
     loadStock();
-  }, [navigate]);
+  }, [navigate, API_URL]);
 
   //  AUMENTAR 
   const increase = async (id) => {
     const res = await fetch(
-      `http://localhost:3001/admin/products/${id}/increase`,
+      `${API_URL}/admin/products/${id}/increase`,
       { method: "POST" }
     );
     const updated = await res.json();
@@ -41,7 +44,7 @@ export default function AdminDashboard() {
   //  DIMINUIR 
   const decrease = async (id) => {
     const res = await fetch(
-      `http://localhost:3001/admin/products/${id}/decrease`,
+      `${API_URL}/admin/products/${id}/decrease`,
       { method: "POST" }
     );
     const updated = await res.json();
@@ -66,7 +69,7 @@ export default function AdminDashboard() {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/admin/products/${id}`,
+        `${API_URL}/admin/products/${id}`,
         { method: "DELETE" }
       );
 

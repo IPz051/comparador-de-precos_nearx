@@ -3,11 +3,11 @@ import { Mainpage } from "./Pages/Mainpage";
 import Products from "./Pages/Products/Products";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 import AdminDashboard from "./Pages/Admin/Dashboard/Dashboard";
-import ProductsStock from "./Pages/Admin/Products/ProductsStock";
 import AdminLogin from "./Pages/Admin/Admin";
 import Signup from "./Pages/Signup/Signup";
 import Login from "./Pages/Login/Login";
 import 'animate.css'
+import ProductsStock from "./Pages/Admin/Products/ProductsStock";
 
 function App() {
 
